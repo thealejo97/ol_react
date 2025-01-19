@@ -23,6 +23,7 @@ function LoginPageView({
     >
       <form onSubmit={handleSubmit} className={styles.loginForm}>
         <h2>Debes iniciar sesión para acceder a la plataforma</h2>
+        <hr></hr>
         <div>
           <label>Correo Electrónico</label>
           <input

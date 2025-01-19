@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import LoginPageView from "./LoginPageView"; // Importa la vista
-import { login } from "../../services/authService"; // Servicio de autenticación
+import LoginPageView from "./LoginPageView";
+import { login } from "../../services/authService";
 
 function LoginPageContainer() {
   const [email, setEmail] = useState("");
@@ -17,8 +17,8 @@ function LoginPageContainer() {
     }
 
     try {
-      const token = await login(email, password); // Llamada al servicio
-      localStorage.setItem("authToken", token); // Guarda el token JWT
+      const token = await login(email, password);
+      localStorage.setItem("authToken", token);
       alert("Inicio de sesión exitoso");
     } catch (error) {
       setErrorMessage("Credenciales inválidas");

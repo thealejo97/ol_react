@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; 
 import LoginPageView from "./LoginPageView";
 import { login } from "../../services/authService";
 
@@ -7,6 +8,7 @@ function LoginPageContainer() {
   const [password, setPassword] = useState("");
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate(); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,8 +22,9 @@ function LoginPageContainer() {
       const token = await login(email, password);
       localStorage.setItem("authToken", token);
       alert("Inicio de sesión exitoso");
+      navigate("/home"); 
     } catch (error) {
-      console.log("🚀 ~ handleSubmit ~ error:", error)
+      console.log("🚀 ~ handleSubmit ~ error:", error);
       setErrorMessage("Credenciales inválidas");
     }
   };

@@ -1,19 +1,15 @@
 import BASE_URL from "./config";
 
-let jwtToken = null;
-
-export const setToken = (token) => {
-  jwtToken = token;
-};
-
 const httpService = async (url, method = "GET", body = null, headers = {}) => {
+  const jwtToken = localStorage.getItem("jwtToken");
+
   const defaultHeaders = {
     "Content-Type": "application/json",
     ...(jwtToken && { Authorization: `Bearer ${jwtToken}` }),
   };
 
   try {
-    const response = await fetch(`${BASE_URL}${url}`, {
+    const response = await fetch(`${url}`, {
       method,
       headers: { ...defaultHeaders, ...headers },
       body: body ? JSON.stringify(body) : null,

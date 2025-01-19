@@ -21,6 +21,7 @@ function LoginPageContainer() {
       localStorage.setItem("authToken", token);
       alert("Inicio de sesión exitoso");
     } catch (error) {
+      console.log("🚀 ~ handleSubmit ~ error:", error)
       setErrorMessage("Credenciales inválidas");
     }
   };

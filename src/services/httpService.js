@@ -9,7 +9,7 @@ export const setToken = (token) => {
 const httpService = async (url, method = "GET", body = null, headers = {}) => {
   const defaultHeaders = {
     "Content-Type": "application/json",
-    ...(jwtToken && { Authorization: `Bearer ${jwtToken}` }), // Agrega el token JWT si está disponible
+    ...(jwtToken && { Authorization: `Bearer ${jwtToken}` }),
   };
 
   try {

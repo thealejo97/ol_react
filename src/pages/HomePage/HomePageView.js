@@ -43,18 +43,18 @@ const HomePageView = ({ merchants, loading, error, onLogout }) => {
           <tbody>
             {merchants.map((merchant) => (
               <tr key={merchant.id}>
-                <td>{merchant.name}</td>
+                <td>{merchant.businessName}</td>
                 <td>{merchant.phone}</td>
                 <td>{merchant.email}</td>
-                <td>{merchant.registrationDate}</td>
-                <td>{merchant.establishments}</td>
+                <td>{new Date(merchant.createdOn).toLocaleDateString('en-CA')}</td>
+                <td>{merchant.numberOfEstablishments}</td>
                 <td>
                   <span
                     className={`${styles.statusBadge} ${
-                      merchant.active ? styles.active : styles.inactive
+                      merchant.status ? styles.active : styles.inactive
                     }`}
                   >
-                    {merchant.active ? "Activo" : "Inactivo"}
+                    {merchant.status ? "Activo" : "Inactivo"}
                   </span>
                 </td>
                 <td>

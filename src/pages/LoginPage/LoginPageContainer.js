@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; 
 import LoginPageView from "./LoginPageView";
 import { login } from "../../services/authService";
@@ -9,6 +9,13 @@ function LoginPageContainer() {
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate(); 
+
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    if (token) {
+      navigate("/home"); 
+    }
+  }, [navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

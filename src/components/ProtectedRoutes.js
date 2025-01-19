@@ -14,7 +14,6 @@ const ProtectedRoutes = () => {
           </ProtectedRoute>
         } 
       />
-      {/* Agrega más rutas protegidas aquí */}
     </Routes>
   );
 };

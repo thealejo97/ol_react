@@ -15,17 +15,17 @@ const MerchantFormPageView = ({
   onSubmit,
   handleNavigateMerchant,
   handleNavigateListMerchant,
-  isAddingEstablishment, // Nueva prop
-  newEstablishment, // Nueva prop
-  onNewEstablishmentChange, // Nueva prop
-  onSaveNewEstablishment, // Nueva prop
-  onCancelNewEstablishment, // Nueva prop
+  isAddingEstablishment, 
+  newEstablishment, 
+  onNewEstablishmentChange, 
+  onSaveNewEstablishment, 
+  onCancelNewEstablishment, 
 }) => {
-  const formRef = useRef(null); // Referencia al formulario
+  const formRef = useRef(null); 
 
   const handleManualSubmit = () => {
     if (formRef.current) {
-      formRef.current.requestSubmit(); // Dispara el submit del formulario
+      formRef.current.requestSubmit(); 
     }
   };
 

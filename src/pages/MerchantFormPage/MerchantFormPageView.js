@@ -154,6 +154,7 @@ const MerchantFormPageView = ({
       
       {merchant.hasEstablishments && (
   <div className={styles.formEstablishment}>
+    <div>
     <h3>Gestionar Establecimiento</h3>
     <button
       type="button"
@@ -162,6 +163,7 @@ const MerchantFormPageView = ({
     >
       Crear Establecimiento
     </button>
+    </div>
     <div className={styles.establishmentsGrid}>
       {establishments.map((est, index) => (
         <div key={index} className={styles.establishmentCard}>

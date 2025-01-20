@@ -278,3 +278,56 @@ h1 {
         width: 100%;
     }
 }
+
+.establishmentInput {
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  .createEstablishmentButton {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+    margin-bottom: 20px;
+  }
+  
+  .createEstablishmentButton:hover {
+    background-color: #218838;
+  }
+  .saveEstablishmentButton {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .cancelEstablishmentButton {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .saveEstablishmentButton:hover {
+    background-color: #218838;
+  }
+  
+  .cancelEstablishmentButton:hover {
+    background-color: #b21f2d;
+  }

@@ -1,4 +1,7 @@
 Este proyecto es una prueba técnica desarrollada en React para gestionar formularios de comerciantes. Incluye funcionalidades como creación, listado y actualización de datos, conectándose a un backend desarrollado con Spring Boot.
+# Imagenes
+
+Se añadieron imagenes del funcionamiento del sitio en la ubicacion /example_images
 
 # Requisitos
 Para aprovechar todas las funcionalidades de la aplicación, asegúrate de tener ejecutados simultáneamente los siguientes proyectos:

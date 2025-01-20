@@ -11,7 +11,8 @@ function LoginPageContainer() {
   const navigate = useNavigate(); 
 
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
+    const token = localStorage.getItem("jwtToken");
+    console.log("🚀 ~ useEffect ~ token:", token)
     if (token) {
       navigate("/home"); 
     }
@@ -27,7 +28,7 @@ function LoginPageContainer() {
 
     try {
       const token = await login(email, password);
-      localStorage.setItem("authToken", token);
+      localStorage.setItem("jwtToken", token);
       alert("Inicio de sesión exitoso");
       navigate("/home"); 
     } catch (error) {

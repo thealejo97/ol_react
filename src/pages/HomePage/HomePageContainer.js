@@ -12,7 +12,7 @@ const HomePageContainer = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
 
-  const navigate = useNavigate(); // Hook para navegar entre rutas
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const fetchMerchants = async () => {
@@ -80,7 +80,7 @@ const HomePageContainer = () => {
   };
 
   const handleCreateNewForm = () => {
-    navigate("/merchant-form"); // Navegar a la página de formulario
+    navigate("/merchant-form"); 
   };
 
   const handleToggleStatus = async (merchantId, currentStatus) => {
@@ -101,7 +101,7 @@ const HomePageContainer = () => {
   
       alert(`El comerciante fue ${newStatus === "Active" ? "activado" : "desactivado"} correctamente.`);
   
-      // Actualiza la lista de comerciantes después del cambio
+      
       const updatedMerchants = merchants.map((merchant) =>
         merchant.id === merchantId ? { ...merchant, status: newStatus } : merchant
       );
@@ -112,6 +112,32 @@ const HomePageContainer = () => {
     }
   };
 
+  const handleDeleteMerchant = async (merchantId) => {
+    try {
+      const jwtToken = localStorage.getItem("jwtToken");
+      const response = await fetch(`${API_ENDPOINTS.MERCHANTS}/${merchantId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          ...(jwtToken && { Authorization: `Bearer ${jwtToken}` }),
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error("No se pudo eliminar el comerciante");
+      }
+  
+      alert("El comerciante fue eliminado correctamente.");
+  
+      // Actualiza la lista de comerciantes después de la eliminación
+      const updatedMerchants = merchants.filter((merchant) => merchant.id !== merchantId);
+      setMerchants(updatedMerchants);
+    } catch (err) {
+      console.error(err);
+      alert("Ocurrió un error al intentar eliminar el comerciante.");
+    }
+  };
+  
   
 
   return (
@@ -128,6 +154,7 @@ const HomePageContainer = () => {
       onCreateNewForm={handleCreateNewForm}
       onDownloadCSV={handleDownloadCSV}
       onToggleStatus={handleToggleStatus}
+      onDeleteMerchant={handleDeleteMerchant}
     />
 
   );

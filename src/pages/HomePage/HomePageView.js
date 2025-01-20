@@ -13,7 +13,8 @@ const HomePageView = ({
   onItemsPerPageChange,
   onCreateNewForm,
   onDownloadCSV, 
-  onToggleStatus
+  onToggleStatus,
+  onDeleteMerchant
 }) => {
   const renderPagination = () => {
     if (totalPages <= 1) return null;
@@ -196,7 +197,12 @@ const HomePageView = ({
                     >
                       {merchant.status === "Active" ? "✔️" : "❌"}
                     </button>
-                    <button className={styles.deleteButton}>🗑️</button>
+                    <button
+                      className={styles.deleteButton}
+                      onClick={() => onDeleteMerchant(merchant.id)}
+                    >
+                      🗑️
+                    </button>
                   </td>
                 </tr>
               ))}

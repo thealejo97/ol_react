@@ -24,6 +24,15 @@ const ProtectedRoutes = () => {
           </ProtectedRoute>
         } 
       />
+
+      <Route 
+        path="/merchant-form/:id" 
+        element={
+          <ProtectedRoute>
+            <MerchantFormPage />
+          </ProtectedRoute>
+        } 
+      />
     </Routes>
   );
 };

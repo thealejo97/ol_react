@@ -16,7 +16,8 @@ const HomePageView = ({
   onToggleStatus,
   onDeleteMerchant,
   handleNavigateMerchant,
-  handleNavigateListMerchant
+  handleNavigateListMerchant,
+  onEditMerchant
 }) => {
   const renderPagination = () => {
     if (totalPages <= 1) return null;
@@ -193,7 +194,12 @@ const HomePageView = ({
                     </span>
                   </td>
                   <td>
-                    <button className={styles.editButton}>✏️</button>
+                    <button
+                      className={styles.editButton}
+                      onClick={() => onEditMerchant(merchant.id)} // Llamada al handler con el ID del comerciante
+                    >
+                      ✏️
+                    </button>
                     <button
                       className={styles.toggleButton}
                       onClick={() => onToggleStatus(merchant.id, merchant.status)}

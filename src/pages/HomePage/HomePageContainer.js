@@ -37,6 +37,10 @@ const HomePageContainer = () => {
     setCurrentPage(page);
   };
 
+  const handleEditMerchant = (merchantId) => {
+    navigate(`/merchant-form/${merchantId}`); // Navega a la vista de edición con el ID
+  };
+
   const handleNavigateMerchant = () => {
     navigate("/merchant-form");
   };
@@ -163,6 +167,7 @@ const HomePageContainer = () => {
       onDeleteMerchant={handleDeleteMerchant}
       handleNavigateMerchant={handleNavigateMerchant}
       handleNavigateListMerchant={handleNavigateListMerchant}
+      onEditMerchant={handleEditMerchant}
     />
 
   );

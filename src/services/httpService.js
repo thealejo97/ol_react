@@ -15,6 +15,14 @@ const httpService = async (url, method = "GET", body = null, headers = {}) => {
       body: body ? JSON.stringify(body) : null,
     });
 
+    // Manejo del código 403 Unauthorized
+    if (response.status === 403) {
+      console.warn("Sesión no autorizada, redirigiendo al login...");
+      localStorage.removeItem("jwtToken"); // Limpia el token
+      window.location.href = "/login"; // Redirige al login
+      return;
+    }
+
     if (!response.ok) {
       const error = await response.json();
       throw new Error(error.message || "Error en la petición");

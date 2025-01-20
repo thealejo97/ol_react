@@ -1,11 +1,11 @@
-/* Contenedor principal */
+
 .homeContainer {
-    padding: 20px;
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
+    height: 100vh;
   }
   
-  /* Header */
+  
   .header {
     display: flex;
     justify-content: space-between;
@@ -65,7 +65,7 @@
     background-color: #e60000;
   }
   
-  /* Título principal */
+  
   .title {
     font-size: 24px;
     margin: 20px 0;
@@ -73,7 +73,7 @@
     color: #333;
   }
   
-  /* Botones de acción */
+  
   .actionButtons {
     display: flex;
     justify-content: flex-end;
@@ -109,7 +109,7 @@
     background-color: #218838;
   }
   
-  /* Tabla */
+  
   .tableWrapper {
     overflow-x: auto;
   }
@@ -153,7 +153,7 @@
     background-color: #f44336;
   }
   
-  /* Botones de acciones en la tabla */
+  
   .editButton,
   .toggleButton,
   .deleteButton {
@@ -180,7 +180,7 @@
     color: white;
   }
   
-  /* Footer */
+  
   .footer {
     margin-top: 20px;
     background-color: #0056b3;
@@ -190,23 +190,23 @@
     font-size: 14px;
   }
 
-  /* Contenedor principal del usuario */
+  
 .userContainer {
     display: flex;
     align-items: center;
     gap: 10px;
   }
   
-  /* Ícono de usuario */
+  
   .userIcon {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #e0e0e0; /* Color de fondo del ícono */
+    background-color: #e0e0e0; 
     display: inline-block;
   }
   
-  /* Detalles del usuario */
+  
   .userDetails {
     display: flex;
     flex-direction: column;
@@ -215,7 +215,7 @@
   
   .welcomeText {
     font-size: 14px;
-    color: #0056b3; /* Color azul */
+    color: #0056b3; 
     font-weight: bold;
   }
   

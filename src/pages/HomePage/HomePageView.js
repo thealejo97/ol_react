@@ -139,103 +139,104 @@ const HomePageView = ({
           </div>
         </div>
       </header>
+      <div className={styles.bodyContent}>
 
-      <h1 className={styles.title}>Lista Formularios Creados</h1>
+        <h1 className={styles.title}>Lista Formularios Creados</h1>
 
-      <div className={styles.actionButtons}>
-        <button
-          className={styles.newFormButton}
-          onClick={onCreateNewForm} 
-        >
-          Crear Formulario Nuevo
-        </button>
-        <button
-          className={styles.downloadCSVButton}
-          onClick={onDownloadCSV}
-        >
-          Descargar Reporte en CSV
-        </button>
-      </div>
-
-      {loading && <p>Cargando comerciantes...</p>}
-      {error && <p className={styles.error}>{error}</p>}
-
-      {!loading && !error && (
-        <div className={styles.tableWrapper}>
-          <table className={styles.table}>
-            <thead>
-              <tr>
-                <th>Razón Social</th>
-                <th>Teléfono</th>
-                <th>Correo Electrónico</th>
-                <th>Fecha Registro</th>
-                <th>No. Establecimientos</th>
-                <th>Estado</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {merchants.map((merchant) => (
-                <tr key={merchant.id}>
-                  <td>{merchant.businessName}</td>
-                  <td>{merchant.phone}</td>
-                  <td>{merchant.email}</td>
-                  <td>{merchant.createdOn}</td>
-                  <td>{merchant.numberOfEstablishments}</td>
-                  <td>
-                    <span
-                      className={`${styles.statusBadge} ${
-                        merchant.status === "Active"
-                          ? styles.active
-                          : styles.inactive
-                      }`}
-                    >
-                      {merchant.status}
-                    </span>
-                  </td>
-                  <td>
-                    <button
-                      className={styles.editButton}
-                      onClick={() => onEditMerchant(merchant.id)} // Llamada al handler con el ID del comerciante
-                    >
-                      ✏️
-                    </button>
-                    <button
-                      className={styles.toggleButton}
-                      onClick={() => onToggleStatus(merchant.id, merchant.status)}
-                    >
-                      {merchant.status === "Active" ? "✔️" : "❌"}
-                    </button>
-                    <button
-                      className={styles.deleteButton}
-                      onClick={() => onDeleteMerchant(merchant.id)}
-                    >
-                      🗑️
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-            </table>
-            <div className={styles.paginationControls}>
-              <label>
-                Items:
-                <select
-                  value={itemsPerPage}
-                  onChange={(e) => onItemsPerPageChange(Number(e.target.value))}
-                  className={styles.itemsSelect}
-                >
-                  <option value={5}>5</option>
-                  <option value={10}>10</option>
-                  <option value={20}>20</option>
-                  <option value={50}>50</option>
-                </select>
-              </label>
-              {renderPagination()}
-            </div>
+        <div className={styles.actionButtons}>
+          <button
+            className={styles.newFormButton}
+            onClick={onCreateNewForm} 
+          >
+            Crear Formulario Nuevo
+          </button>
+          <button
+            className={styles.downloadCSVButton}
+            onClick={onDownloadCSV}
+          >
+            Descargar Reporte en CSV
+          </button>
         </div>
-      )}
 
+        {loading && <p>Cargando comerciantes...</p>}
+        {error && <p className={styles.error}>{error}</p>}
+
+        {!loading && !error && (
+          <div className={styles.tableWrapper}>
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>Razón Social</th>
+                  <th>Teléfono</th>
+                  <th>Correo Electrónico</th>
+                  <th>Fecha Registro</th>
+                  <th>No. Establecimientos</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {merchants.map((merchant) => (
+                  <tr key={merchant.id}>
+                    <td>{merchant.businessName}</td>
+                    <td>{merchant.phone}</td>
+                    <td>{merchant.email}</td>
+                    <td>{merchant.createdOn}</td>
+                    <td>{merchant.numberOfEstablishments}</td>
+                    <td>
+                      <span
+                        className={`${styles.statusBadge} ${
+                          merchant.status === "Active"
+                            ? styles.active
+                            : styles.inactive
+                        }`}
+                      >
+                        {merchant.status}
+                      </span>
+                    </td>
+                    <td>
+                      <button
+                        className={styles.editButton}
+                        onClick={() => onEditMerchant(merchant.id)} // Llamada al handler con el ID del comerciante
+                      >
+                        ✏️
+                      </button>
+                      <button
+                        className={styles.toggleButton}
+                        onClick={() => onToggleStatus(merchant.id, merchant.status)}
+                      >
+                        {merchant.status === "Active" ? "✔️" : "❌"}
+                      </button>
+                      <button
+                        className={styles.deleteButton}
+                        onClick={() => onDeleteMerchant(merchant.id)}
+                      >
+                        🗑️
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+              </table>
+              <div className={styles.paginationControls}>
+                <label>
+                  Items:
+                  <select
+                    value={itemsPerPage}
+                    onChange={(e) => onItemsPerPageChange(Number(e.target.value))}
+                    className={styles.itemsSelect}
+                  >
+                    <option value={5}>5</option>
+                    <option value={10}>10</option>
+                    <option value={20}>20</option>
+                    <option value={50}>50</option>
+                  </select>
+                </label>
+                {renderPagination()}
+              </div>
+          </div>
+        )}
+      </div>
       <footer className={styles.footer}>
         <p>Prueba Técnica De Uso Exclusivo de OLSoftware S.A.</p>
       </footer>

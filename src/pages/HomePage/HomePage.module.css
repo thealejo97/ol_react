@@ -179,6 +179,10 @@
     background-color: #dc3545;
     color: white;
   }
+
+  .bodyContent{
+    min-height: calc(100% - 186px);
+  }
   
   
   .footer {

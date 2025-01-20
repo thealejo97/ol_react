@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import MerchantFormPageView from "./MerchantFormPageView";
-import httpService from "../../services/httpService"; // Simulando un servicio HTTP
+import httpService from "../../services/httpService"; 
 import { API_ENDPOINTS } from "../../services/config";
 
 const MerchantFormPageContainer = () => {
@@ -20,7 +20,7 @@ const MerchantFormPageContainer = () => {
   const [totalIncomes, setTotalIncomes] = useState(0);
   const [totalEmployees, setTotalEmployees] = useState(0);
 
-  // Fetch departments (with cities included)
+  
   useEffect(() => {
     const fetchDepartmentsWithCities = async () => {
       try {
@@ -42,7 +42,7 @@ const MerchantFormPageContainer = () => {
     fetchDepartmentsWithCities();
   }, []);
 
-  // Update cities when department changes
+  
   useEffect(() => {
     if (merchant.department) {
       const selectedDepartment = departments.find(
@@ -52,11 +52,11 @@ const MerchantFormPageContainer = () => {
         setCities(selectedDepartment.cities);
       }
     } else {
-      setCities([]); // Limpia las ciudades si no hay departamento seleccionado
+      setCities([]); 
     }
   }, [merchant.department, departments]);
 
-  // Calculate totals when establishments change
+  
   useEffect(() => {
     const totalIncomes = establishments.reduce(
       (acc, est) => acc + parseFloat(est.incomes || 0),
@@ -100,24 +100,24 @@ const MerchantFormPageContainer = () => {
     console.log("Formulario enviado:", merchant, establishments);
     e.preventDefault();
 
-    // Crear el payload que coincida con la estructura esperada por el API
+    
     const payload = {
       businessName: merchant.businessName,
-      cityId: parseInt(merchant.city, 10), // Asegúrate de que sea un número
-      departmentId: parseInt(merchant.department, 10), // Asegúrate de que sea un número
+      cityId: parseInt(merchant.city, 10), 
+      departmentId: parseInt(merchant.department, 10), 
       phone: merchant.phone,
       email: merchant.email,
-      status: "Active", // Puedes cambiar esto si el estado es dinámico
-      createdBy: "admin", // Puedes reemplazarlo por el usuario actual si está disponible
+      status: "Active", 
+      createdBy: "admin", 
     };
 
     try {
-      // Realiza la solicitud POST al endpoint MERCHANTS
+      
       const response = await httpService(API_ENDPOINTS.MERCHANTS, "POST", payload);
       alert("Formulario enviado correctamente");
       console.log("Respuesta del servidor:", response);
 
-      // Limpia el formulario después de enviarlo
+      
       setMerchant({
         businessName: "",
         department: "",

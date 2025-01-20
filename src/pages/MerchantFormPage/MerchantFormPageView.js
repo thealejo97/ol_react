@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import styles from "./MerchantFormPage.module.css";
 
 const MerchantFormPageView = ({
@@ -14,43 +14,50 @@ const MerchantFormPageView = ({
   onRemoveEstablishment,
   onSubmit,
 }) => {
+  const formRef = useRef(null); // Referencia al formulario
+
+  const handleManualSubmit = () => {
+    if (formRef.current) {
+      formRef.current.requestSubmit(); // Dispara el submit del formulario
+    }
+  };
+
   return (
     <div className={styles.container}>
       <header className={styles.header}>
         <div className={styles.headerLeft}>
-            <img
-                src="/assets/images/logo.png"
-                alt="Logo OL"
-                className={styles.logo}
-            />
-            <nav className={styles.nav}>
-                <a href="#" className={styles.navLink}>
-                    Lista Formulario
-                </a>
-                <a href="#" className={styles.navLink}>
-                    Crear Formulario
-                </a>
-            </nav>
+          <img
+            src="/assets/images/logo.png"
+            alt="Logo OL"
+            className={styles.logo}
+          />
+          <nav className={styles.nav}>
+            <a href="#" className={styles.navLink}>
+              Lista Formulario
+            </a>
+            <a href="#" className={styles.navLink}>
+              Crear Formulario
+            </a>
+          </nav>
         </div>
         <div className={styles.headerRight}>
-            <div className={styles.userContainer}>
-                <img
-                    src="/assets/images/user-icon.png"
-                    alt="User Icon"
-                    className={styles.userIcon}
-                />
-                <div className={styles.userDetails}>
-                    <span className={styles.welcomeText}>Bienvenido!</span>
-                    <span className={styles.userName}>John Doe</span>
-                    <small className={styles.userRole}>Administrador</small>
-                </div>
+          <div className={styles.userContainer}>
+            <img
+              src="/assets/images/user-icon.png"
+              alt="User Icon"
+              className={styles.userIcon}
+            />
+            <div className={styles.userDetails}>
+              <span className={styles.welcomeText}>Bienvenido!</span>
+              <span className={styles.userName}>John Doe</span>
+              <small className={styles.userRole}>Administrador</small>
             </div>
+          </div>
         </div>
-    </header>
-
+      </header>
 
       <h1 className={styles.title}>Formulario de Comerciante</h1>
-      <form onSubmit={onSubmit} className={styles.form}>
+      <form onSubmit={onSubmit} className={styles.form} ref={formRef}>
         <div className={styles.formGroup}>
           <label>Razón Social:</label>
           <input
@@ -76,7 +83,6 @@ const MerchantFormPageView = ({
               </option>
             ))}
           </select>
-
         </div>
         <div className={styles.formGroup}>
           <label>Municipio:</label>
@@ -189,20 +195,22 @@ const MerchantFormPageView = ({
       </form>
 
       <footer className={styles.footer}>
-          <div className={styles.footerItem}>
-            <p className={styles.footerLabel}>Total Ingresos Formulario:</p>
-            <p className={styles.footerValue}>{`$${totalIncomes.toLocaleString()}`}</p>
-          </div>
-          <div className={styles.footerItem}>
-            <p className={styles.footerLabel}>Cantidad de empleados:</p>
-            <p className={styles.footerValue}>{totalEmployees}</p>
-          </div>
-          <button type="submit" className={styles.submitButton}>
-            Enviar Formulario
-          </button>
-        </footer>
-        
-
+        <div className={styles.footerItem}>
+          <p className={styles.footerLabel}>Total Ingresos Formulario:</p>
+          <p className={styles.footerValue}>{`$${totalIncomes.toLocaleString()}`}</p>
+        </div>
+        <div className={styles.footerItem}>
+          <p className={styles.footerLabel}>Cantidad de empleados:</p>
+          <p className={styles.footerValue}>{totalEmployees}</p>
+        </div>
+        <button
+          type="button"
+          className={styles.submitButton}
+          onClick={handleManualSubmit} 
+        >
+          Enviar Formulario
+        </button>
+      </footer>
     </div>
   );
 };

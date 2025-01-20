@@ -14,7 +14,12 @@ const MerchantFormPageView = ({
   onRemoveEstablishment,
   onSubmit,
   handleNavigateMerchant,
-  handleNavigateListMerchant
+  handleNavigateListMerchant,
+  isAddingEstablishment, // Nueva prop
+  newEstablishment, // Nueva prop
+  onNewEstablishmentChange, // Nueva prop
+  onSaveNewEstablishment, // Nueva prop
+  onCancelNewEstablishment, // Nueva prop
 }) => {
   const formRef = useRef(null); // Referencia al formulario
 
@@ -144,58 +149,93 @@ const MerchantFormPageView = ({
           </label>
         </div>
 
-        {merchant.hasEstablishments && (
-          <div className={styles.establishmentsSection}>
-            <h3>Establecimientos</h3>
+
+      </form>
+      
+      {merchant.hasEstablishments && (
+  <div className={styles.formEstablishment}>
+    <h3>Gestionar Establecimiento</h3>
+    <button
+      type="button"
+      onClick={onAddEstablishment}
+      className={styles.createEstablishmentButton}
+    >
+      Crear Establecimiento
+    </button>
+    <div className={styles.establishmentsGrid}>
+      {establishments.map((est, index) => (
+        <div key={index} className={styles.establishmentCard}>
+          <h4>{`Empresa ${index + 1}`}</h4>
+          <p>
+            <strong>Nombre establecimiento:</strong> {est.name || "Sin nombre"}
+          </p>
+          <p>
+            <strong>Ingresos:</strong> ${est.incomes?.toLocaleString() || 0}
+          </p>
+          <p>
+            <strong>No. Empleados:</strong> {est.employees || 0}
+          </p>
+          <div className={styles.cardActions}>
             <button
               type="button"
-              onClick={onAddEstablishment}
-              className={styles.addButton}
+              onClick={() => onEstablishmentChange(index, "edit", true)}
+              className={styles.editButton}
             >
-              Agregar Establecimiento
+              Editar
             </button>
-            {establishments.map((est, index) => (
-              <div key={index} className={styles.establishmentRow}>
-                <input
-                  type="text"
-                  placeholder="Nombre"
-                  value={est.name}
-                  onChange={(e) =>
-                    onEstablishmentChange(index, "name", e.target.value)
-                  }
-                  required
-                />
-                <input
-                  type="number"
-                  placeholder="Ingresos"
-                  value={est.incomes}
-                  onChange={(e) =>
-                    onEstablishmentChange(index, "incomes", e.target.value)
-                  }
-                  required
-                />
-                <input
-                  type="number"
-                  placeholder="Número de Empleados"
-                  value={est.employees}
-                  onChange={(e) =>
-                    onEstablishmentChange(index, "employees", e.target.value)
-                  }
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => onRemoveEstablishment(index)}
-                  className={styles.deleteButton}
-                >
-                  🗑️
-                </button>
-              </div>
-            ))}
+            <button
+              type="button"
+              onClick={() => onRemoveEstablishment(index)}
+              className={styles.deleteButton}
+            >
+              Eliminar
+            </button>
           </div>
-        )}
-      </form>
-
+        </div>
+      ))}
+      {isAddingEstablishment && (
+        <div className={styles.newEstablishmentCard}>
+          <h4>Nuevo Establecimiento</h4>
+          <input
+            type="text"
+            placeholder="Nombre Establecimiento *"
+            value={newEstablishment.name || ""}
+            onChange={(e) => onNewEstablishmentChange("name", e.target.value)}
+            className={styles.establishmentInput}
+          />
+          <input
+            type="number"
+            placeholder="Ingresos *"
+            value={newEstablishment.incomes || ""}
+            onChange={(e) => onNewEstablishmentChange("incomes", e.target.value)}
+            className={styles.establishmentInput}
+          />
+          <input
+            type="number"
+            placeholder="No. Empleados"
+            value={newEstablishment.employees || ""}
+            onChange={(e) => onNewEstablishmentChange("employees", e.target.value)}
+            className={styles.establishmentInput}
+          />
+          <button
+            type="button"
+            onClick={onSaveNewEstablishment}
+            className={styles.saveEstablishmentButton}
+          >
+            Guardar
+          </button>
+          <button
+            type="button"
+            onClick={onCancelNewEstablishment}
+            className={styles.cancelEstablishmentButton}
+          >
+            Cancelar
+          </button>
+        </div>
+      )}
+    </div>
+  </div>
+)}
       <footer className={styles.footer}>
         <div className={styles.footerItem}>
           <p className={styles.footerLabel}>Total Ingresos Formulario:</p>

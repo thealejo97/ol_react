@@ -1,14 +1,12 @@
-
 .container {
     width: 100%;
-    height: 100vh; 
-    background-color: #f5f8fd; 
+    min-height: 100vh; /* Cambiado a min-height para evitar cortes */
+    background-color: #f5f8fd;
     font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
-    overflow: hidden; 
+    overflow: hidden;
 }
-
 
 .header {
     width: 97%;
@@ -19,9 +17,8 @@
     align-items: center;
     padding: 10px 40px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    flex-shrink: 0; 
+    flex-shrink: 0;
 }
-
 
 .headerLeft {
     display: flex;
@@ -94,14 +91,12 @@
     color: #666;
 }
 
-
 h1 {
     font-size: 24px;
     font-weight: bold;
     color: #333;
     margin: 20px 40px;
 }
-
 
 .form {
     background-color: white;
@@ -111,12 +106,19 @@ h1 {
     padding: 20px 40px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr; /* Formulario ocupa todo el ancho */
     gap: 20px;
-    flex-grow: 1; 
-    overflow-y: auto; 
+    flex-grow: 1;
 }
 
+.formEstablishment {
+    background-color: white;
+    width: 90%;
+    margin: 20px auto;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
 .formGroup {
     display: flex;
@@ -146,7 +148,6 @@ h1 {
     outline: none;
 }
 
-
 .footer {
     display: flex;
     justify-content: space-between;
@@ -154,12 +155,11 @@ h1 {
     background-color: #0056b3;
     color: white;
     padding: 20px 40px;
-    position: relative; 
+    position: relative;
     width: 97%;
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-    flex-shrink: 0; 
+    flex-shrink: 0;
 }
-
 
 .footerItem {
     flex: 1;
@@ -193,11 +193,80 @@ h1 {
     background-color: #e91e63;
 }
 
+.establishmentsSection {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f5f8fd;
+    border-radius: 10px;
+}
+
+.establishmentsGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas */
+    gap: 20px; /* Espaciado entre tarjetas */
+    margin-top: 20px;
+}
+
+.establishmentCard,
+.newEstablishmentCard {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    height: auto; /* Ajuste automático según contenido */
+    min-height: 180px; /* Altura mínima para evitar sobreposición */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.newEstablishmentCard {
+    border: 2px dashed #007bff;
+}
+
+.establishmentCard h4,
+.newEstablishmentCard h4 {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+.establishmentCard p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.cardActions {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.editButton,
+.deleteButton {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.deleteButton {
+    background-color: #dc3545;
+}
+
+.editButton:hover {
+    background-color: #0056b3;
+}
+
+.deleteButton:hover {
+    background-color: #b21f2d;
+}
 
 @media (max-width: 768px) {
-    .form {
-        grid-template-columns: 1fr;
-        padding: 20px;
+    .establishmentsGrid {
+        grid-template-columns: 1fr; /* Una sola columna en pantallas pequeñas */
     }
 
     .footer {

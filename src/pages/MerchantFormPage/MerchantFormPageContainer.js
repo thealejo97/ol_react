@@ -5,7 +5,7 @@ import { API_ENDPOINTS } from "../../services/config";
 import { useNavigate, useParams } from "react-router-dom";
 
 const MerchantFormPageContainer = () => {
-  const { id } = useParams(); // Obtiene el ID del comerciante (si existe)
+  const { id } = useParams(); 
   const [merchant, setMerchant] = useState({
     businessName: "",
     department: "",
@@ -22,6 +22,12 @@ const MerchantFormPageContainer = () => {
   const [cities, setCities] = useState([]);
   const [totalIncomes, setTotalIncomes] = useState(0);
   const [totalEmployees, setTotalEmployees] = useState(0);
+  const [isAddingEstablishment, setIsAddingEstablishment] = useState(false);
+  const [newEstablishment, setNewEstablishment] = useState({
+    name: "",
+    incomes: "",
+    employees: "",
+  });
 
   useEffect(() => {
     const fetchDepartmentsWithCities = async () => {
@@ -70,7 +76,7 @@ const MerchantFormPageContainer = () => {
     setTotalEmployees(totalEmployees);
   }, [establishments]);
 
-  // Carga los datos del comerciante si es actualización
+  
   useEffect(() => {
     if (id) {
       const fetchMerchant = async () => {
@@ -78,7 +84,7 @@ const MerchantFormPageContainer = () => {
           const data = await httpService(`${API_ENDPOINTS.MERCHANTS}/${id}`);
           console.log("🚀 ~ fetchMerchant ~ data:", data);
   
-          // Convertir la fecha al formato `YYYY-MM-DD`
+          
           const formattedDate = data.createdOn
             ? new Date(data.createdOn).toISOString().split("T")[0]
             : "";
@@ -89,11 +95,11 @@ const MerchantFormPageContainer = () => {
             city: data.city.id.toString(),
             phone: data.phone,
             email: data.email,
-            registrationDate: formattedDate, // Usar la fecha formateada
+            registrationDate: formattedDate, 
             hasEstablishments: data.numberOfEstablishments > 0,
           });
   
-          // Si el comerciante tiene establecimientos
+          
           setEstablishments(data.establishments || []);
         } catch (err) {
           console.error("Error fetching merchant:", err);
@@ -155,11 +161,11 @@ const MerchantFormPageContainer = () => {
 
     try {
       if (id) {
-        // Actualización
+        
         await httpService(`${API_ENDPOINTS.MERCHANTS}/${id}`, "PUT", payload);
         alert("Formulario actualizado correctamente");
       } else {
-        // Creación
+        
         await httpService(API_ENDPOINTS.MERCHANTS, "POST", payload);
         alert("Formulario enviado correctamente");
       }
@@ -168,6 +174,34 @@ const MerchantFormPageContainer = () => {
       alert("Error enviando el formulario");
       console.error("Error en la solicitud:", err);
     }
+  };
+
+
+  const onAddEstablishment = () => {
+    setIsAddingEstablishment(true); 
+  };
+  
+  const onNewEstablishmentChange = (field, value) => {
+    setNewEstablishment((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+  
+  const onSaveNewEstablishment = () => {
+    if (!newEstablishment.name || !newEstablishment.incomes) {
+      alert("Por favor completa todos los campos obligatorios");
+      return;
+    }
+  
+    setEstablishments((prev) => [...prev, newEstablishment]);
+    setNewEstablishment({ name: "", incomes: "", employees: "" }); 
+    setIsAddingEstablishment(false); 
+  };
+  
+  const onCancelNewEstablishment = () => {
+    setNewEstablishment({ name: "", incomes: "", employees: "" }); 
+    setIsAddingEstablishment(false); 
   };
 
   return (
@@ -179,12 +213,18 @@ const MerchantFormPageContainer = () => {
       totalIncomes={totalIncomes}
       totalEmployees={totalEmployees}
       onInputChange={handleInputChange}
-      onAddEstablishment={handleAddEstablishment}
+      onAddEstablishment={onAddEstablishment}
       onEstablishmentChange={handleEstablishmentChange}
       onRemoveEstablishment={handleRemoveEstablishment}
       onSubmit={handleSubmit}
       handleNavigateMerchant={handleNavigateMerchant}
       handleNavigateListMerchant={handleNavigateListMerchant}
+      isAddingEstablishment={isAddingEstablishment} 
+      newEstablishment={newEstablishment} 
+      onNewEstablishmentChange={onNewEstablishmentChange} 
+      onSaveNewEstablishment={onSaveNewEstablishment} 
+      onCancelNewEstablishment={onCancelNewEstablishment} 
+   
     />
   );
 };

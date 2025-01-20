@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import MerchantFormPageView from "./MerchantFormPageView";
 import httpService from "../../services/httpService"; 
 import { API_ENDPOINTS } from "../../services/config";
+import { useNavigate } from "react-router-dom";
 
 const MerchantFormPageContainer = () => {
   const [merchant, setMerchant] = useState({
@@ -13,6 +14,7 @@ const MerchantFormPageContainer = () => {
     registrationDate: "",
     hasEstablishments: false,
   });
+  const navigate = useNavigate(); 
 
   const [establishments, setEstablishments] = useState([]);
   const [departments, setDepartments] = useState([]);
@@ -85,6 +87,13 @@ const MerchantFormPageContainer = () => {
     ]);
   };
 
+  const handleNavigateMerchant = () => {
+    navigate("/merchant-form");
+  };
+  const handleNavigateListMerchant = () => {
+    navigate("/home");
+  };
+
   const handleEstablishmentChange = (index, field, value) => {
     const updatedEstablishments = [...establishments];
     updatedEstablishments[index][field] = value;
@@ -147,6 +156,8 @@ const MerchantFormPageContainer = () => {
       onEstablishmentChange={handleEstablishmentChange}
       onRemoveEstablishment={handleRemoveEstablishment}
       onSubmit={handleSubmit}
+      handleNavigateMerchant={handleNavigateMerchant}
+      handleNavigateListMerchant={handleNavigateListMerchant}
     />
   );
 };

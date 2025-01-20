@@ -13,6 +13,8 @@ const MerchantFormPageView = ({
   onEstablishmentChange,
   onRemoveEstablishment,
   onSubmit,
+  handleNavigateMerchant,
+  handleNavigateListMerchant
 }) => {
   const formRef = useRef(null); // Referencia al formulario
 
@@ -32,10 +34,10 @@ const MerchantFormPageView = ({
             className={styles.logo}
           />
           <nav className={styles.nav}>
-            <a href="#" className={styles.navLink}>
+            <a href="#" className={styles.navLink} onClick={handleNavigateListMerchant}>
               Lista Formulario
             </a>
-            <a href="#" className={styles.navLink}>
+            <a href="#" className={styles.navLink} onClick={handleNavigateMerchant}>
               Crear Formulario
             </a>
           </nav>

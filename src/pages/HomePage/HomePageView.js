@@ -14,7 +14,9 @@ const HomePageView = ({
   onCreateNewForm,
   onDownloadCSV, 
   onToggleStatus,
-  onDeleteMerchant
+  onDeleteMerchant,
+  handleNavigateMerchant,
+  handleNavigateListMerchant
 }) => {
   const renderPagination = () => {
     if (totalPages <= 1) return null;
@@ -112,12 +114,13 @@ const HomePageView = ({
             className={styles.logo}
           />
           <nav className={styles.nav}>
-            <a href="#" className={styles.navLink}>
+            <a href="#" className={styles.navLink} onClick={handleNavigateListMerchant}>
               Lista Formulario
             </a>
-            <a href="#" className={styles.navLink}>
+            <a href="#" className={styles.navLink} onClick={handleNavigateMerchant}>
               Crear Formulario
             </a>
+
           </nav>
         </div>
         <div className={styles.headerRight}>

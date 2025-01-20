@@ -37,6 +37,12 @@ const HomePageContainer = () => {
     setCurrentPage(page);
   };
 
+  const handleNavigateMerchant = () => {
+    navigate("/merchant-form");
+  };
+  const handleNavigateListMerchant = () => {
+    navigate("/home");
+  };
 
   const handleDownloadCSV = async () => {
     try {
@@ -155,6 +161,8 @@ const HomePageContainer = () => {
       onDownloadCSV={handleDownloadCSV}
       onToggleStatus={handleToggleStatus}
       onDeleteMerchant={handleDeleteMerchant}
+      handleNavigateMerchant={handleNavigateMerchant}
+      handleNavigateListMerchant={handleNavigateListMerchant}
     />
 
   );

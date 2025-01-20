@@ -12,7 +12,8 @@ const HomePageView = ({
   itemsPerPage,
   onItemsPerPageChange,
   onCreateNewForm,
-  onDownloadCSV, // Asegúrate de incluirlo aquí
+  onDownloadCSV, 
+  onToggleStatus
 }) => {
   const renderPagination = () => {
     if (totalPages <= 1) return null;
@@ -189,8 +190,11 @@ const HomePageView = ({
                   </td>
                   <td>
                     <button className={styles.editButton}>✏️</button>
-                    <button className={styles.toggleButton}>
-                      {merchant.status === "Active" ? "❌" : "✔️"}
+                    <button
+                      className={styles.toggleButton}
+                      onClick={() => onToggleStatus(merchant.id, merchant.status)}
+                    >
+                      {merchant.status === "Active" ? "✔️" : "❌"}
                     </button>
                     <button className={styles.deleteButton}>🗑️</button>
                   </td>

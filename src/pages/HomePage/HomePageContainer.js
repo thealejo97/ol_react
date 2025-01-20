@@ -83,6 +83,37 @@ const HomePageContainer = () => {
     navigate("/merchant-form"); // Navegar a la página de formulario
   };
 
+  const handleToggleStatus = async (merchantId, currentStatus) => {
+    const newStatus = currentStatus === "Active" ? "Inactive" : "Active";
+    try {
+      const jwtToken = localStorage.getItem("jwtToken");
+      const response = await fetch(`${API_ENDPOINTS.MERCHANTS}/${merchantId}/status?status=${newStatus}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          ...(jwtToken && { Authorization: `Bearer ${jwtToken}` }),
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error("No se pudo cambiar el estado del comerciante");
+      }
+  
+      alert(`El comerciante fue ${newStatus === "Active" ? "activado" : "desactivado"} correctamente.`);
+  
+      // Actualiza la lista de comerciantes después del cambio
+      const updatedMerchants = merchants.map((merchant) =>
+        merchant.id === merchantId ? { ...merchant, status: newStatus } : merchant
+      );
+      setMerchants(updatedMerchants);
+    } catch (err) {
+      console.error(err);
+      alert("Ocurrió un error al intentar cambiar el estado del comerciante.");
+    }
+  };
+
+  
+
   return (
     <HomePageView
       merchants={merchants}
@@ -95,7 +126,8 @@ const HomePageContainer = () => {
       itemsPerPage={itemsPerPage}
       onItemsPerPageChange={handleItemsPerPageChange}
       onCreateNewForm={handleCreateNewForm}
-      onDownloadCSV={handleDownloadCSV} // Aquí está pasando correctamente
+      onDownloadCSV={handleDownloadCSV}
+      onToggleStatus={handleToggleStatus}
     />
 
   );

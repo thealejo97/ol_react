@@ -37,6 +37,38 @@ const HomePageContainer = () => {
     setCurrentPage(page);
   };
 
+
+  const handleDownloadCSV = async () => {
+    try {
+      const jwtToken = localStorage.getItem("jwtToken");
+      const response = await fetch(`${API_ENDPOINTS.MERCHANTS_EXCEL}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "text/csv",
+          ...(jwtToken && { Authorization: `Bearer ${jwtToken}` }),
+        },
+      });
+
+
+      if (!response.ok) {
+        throw new Error("No se pudo descargar el archivo CSV");
+      }
+  
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "reporte_comerciantes.csv");
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (err) {
+      console.error(err);
+      alert("Ocurrió un error al intentar descargar el archivo CSV.");
+    }
+  };
+
+  
   const handleItemsPerPageChange = (newItemsPerPage) => {
     setItemsPerPage(newItemsPerPage);
     setCurrentPage(1);
@@ -62,8 +94,10 @@ const HomePageContainer = () => {
       onPageChange={handlePageChange}
       itemsPerPage={itemsPerPage}
       onItemsPerPageChange={handleItemsPerPageChange}
-      onCreateNewForm={handleCreateNewForm} // Pasar el manejador al componente View
+      onCreateNewForm={handleCreateNewForm}
+      onDownloadCSV={handleDownloadCSV} // Aquí está pasando correctamente
     />
+
   );
 };
 

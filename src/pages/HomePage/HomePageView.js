@@ -11,7 +11,8 @@ const HomePageView = ({
   onPageChange,
   itemsPerPage,
   onItemsPerPageChange,
-  onCreateNewForm, // Nuevo prop para manejar la navegación
+  onCreateNewForm,
+  onDownloadCSV, // Asegúrate de incluirlo aquí
 }) => {
   const renderPagination = () => {
     if (totalPages <= 1) return null;
@@ -138,11 +139,14 @@ const HomePageView = ({
       <div className={styles.actionButtons}>
         <button
           className={styles.newFormButton}
-          onClick={onCreateNewForm} // Maneja el evento de clic
+          onClick={onCreateNewForm} 
         >
           Crear Formulario Nuevo
         </button>
-        <button className={styles.downloadCSVButton}>
+        <button
+          className={styles.downloadCSVButton}
+          onClick={onDownloadCSV}
+        >
           Descargar Reporte en CSV
         </button>
       </div>

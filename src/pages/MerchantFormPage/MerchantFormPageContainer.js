@@ -20,35 +20,41 @@ const MerchantFormPageContainer = () => {
   const [totalIncomes, setTotalIncomes] = useState(0);
   const [totalEmployees, setTotalEmployees] = useState(0);
 
-  // Fetch departments on component mount
+  // Fetch departments (with cities included)
   useEffect(() => {
-    const fetchDepartments = async () => {
+    const fetchDepartmentsWithCities = async () => {
       try {
         const response = await httpService(API_ENDPOINTS.DEPARTMENTS);
-        setDepartments(response);
+        const departmentsWithCities = response.content.map((department) => ({
+          id: department.id,
+          name: department.name,
+          cities: department.cities.map((city) => ({
+            id: city.id,
+            name: city.name,
+          })),
+        }));
+        setDepartments(departmentsWithCities);
       } catch (err) {
-        console.error("Error fetching departments", err);
+        console.error("Error fetching departments and cities:", err);
       }
     };
-    fetchDepartments();
+
+    fetchDepartmentsWithCities();
   }, []);
 
-  // Fetch cities when department changes
+  // Update cities when department changes
   useEffect(() => {
     if (merchant.department) {
-      const fetchCities = async () => {
-        try {
-          const response = await httpService(
-            `${API_ENDPOINTS.CITIES}?department=${merchant.department}`
-          );
-          setCities(response);
-        } catch (err) {
-          console.error("Error fetching cities", err);
-        }
-      };
-      fetchCities();
+      const selectedDepartment = departments.find(
+        (dept) => dept.id === parseInt(merchant.department, 10)
+      );
+      if (selectedDepartment) {
+        setCities(selectedDepartment.cities);
+      }
+    } else {
+      setCities([]); // Limpia las ciudades si no hay departamento seleccionado
     }
-  }, [merchant.department]);
+  }, [merchant.department, departments]);
 
   // Calculate totals when establishments change
   useEffect(() => {
@@ -91,17 +97,40 @@ const MerchantFormPageContainer = () => {
   };
 
   const handleSubmit = async (e) => {
+    console.log("Formulario enviado:", merchant, establishments);
     e.preventDefault();
+
+    // Crear el payload que coincida con la estructura esperada por el API
+    const payload = {
+      businessName: merchant.businessName,
+      cityId: parseInt(merchant.city, 10), // Asegúrate de que sea un número
+      departmentId: parseInt(merchant.department, 10), // Asegúrate de que sea un número
+      phone: merchant.phone,
+      email: merchant.email,
+      status: "Active", // Puedes cambiar esto si el estado es dinámico
+      createdBy: "admin", // Puedes reemplazarlo por el usuario actual si está disponible
+    };
+
     try {
-      const response = await httpService(API_ENDPOINTS.MERCHANTS, "POST", {
-        merchant,
-        establishments,
-      });
+      // Realiza la solicitud POST al endpoint MERCHANTS
+      const response = await httpService(API_ENDPOINTS.MERCHANTS, "POST", payload);
       alert("Formulario enviado correctamente");
-      console.log(response);
+      console.log("Respuesta del servidor:", response);
+
+      // Limpia el formulario después de enviarlo
+      setMerchant({
+        businessName: "",
+        department: "",
+        city: "",
+        phone: "",
+        email: "",
+        registrationDate: "",
+        hasEstablishments: false,
+      });
+      setEstablishments([]);
     } catch (err) {
       alert("Error enviando el formulario");
-      console.error(err);
+      console.error("Error en la solicitud:", err);
     }
   };
 

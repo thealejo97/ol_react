@@ -76,6 +76,7 @@ const MerchantFormPageView = ({
               </option>
             ))}
           </select>
+
         </div>
         <div className={styles.formGroup}>
           <label>Municipio:</label>
@@ -188,16 +189,20 @@ const MerchantFormPageView = ({
       </form>
 
       <footer className={styles.footer}>
-        <div className={styles.footerItem}>
-          <p className={styles.footerLabel}>Total Ingresos Formulario:</p>
-          <p className={styles.footerValue}>{`$${totalIncomes.toLocaleString()}`}</p>
-        </div>
-        <div className={styles.footerItem}>
-          <p className={styles.footerLabel}>Cantidad de empleados:</p>
-          <p className={styles.footerValue}>{totalEmployees}</p>
-        </div>
-        <button className={styles.submitButton}>Enviar Formulario</button>
-      </footer>
+          <div className={styles.footerItem}>
+            <p className={styles.footerLabel}>Total Ingresos Formulario:</p>
+            <p className={styles.footerValue}>{`$${totalIncomes.toLocaleString()}`}</p>
+          </div>
+          <div className={styles.footerItem}>
+            <p className={styles.footerLabel}>Cantidad de empleados:</p>
+            <p className={styles.footerValue}>{totalEmployees}</p>
+          </div>
+          <button type="submit" className={styles.submitButton}>
+            Enviar Formulario
+          </button>
+        </footer>
+        
+
     </div>
   );
 };
